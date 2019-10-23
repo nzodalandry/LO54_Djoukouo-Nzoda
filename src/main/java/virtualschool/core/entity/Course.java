@@ -11,8 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -26,52 +24,51 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author nzoda
  */
 @Entity
-@Table(name = "location")
+@Table(name = "course")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
-    , @NamedQuery(name = "Location.findById", query = "SELECT l FROM Location l WHERE l.id = :id")
-    , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")})
-public class Location implements Serializable {
+    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
+    , @NamedQuery(name = "Course.findByCode", query = "SELECT c FROM Course c WHERE c.code = :code")
+    , @NamedQuery(name = "Course.findByTitle", query = "SELECT c FROM Course c WHERE c.title = :title")})
+public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "ID")
-    private Long id;
+    @Column(name = "CODE")
+    private String code;
     @Basic(optional = false)
-    @Column(name = "CITY")
-    private String city;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "locationId")
+    @Column(name = "TITLE")
+    private String title;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseCode")
     private Collection<CourseSession> courseSessionCollection;
 
-    public Location() {
+    public Course() {
     }
 
-    public Location(Long id) {
-        this.id = id;
+    public Course(String code) {
+        this.code = code;
     }
 
-    public Location(Long id, String city) {
-        this.id = id;
-        this.city = city;
+    public Course(String code, String title) {
+        this.code = code;
+        this.title = title;
     }
 
-    public Long getId() {
-        return id;
+    public String getCode() {
+        return code;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getCity() {
-        return city;
+    public String getTitle() {
+        return title;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @XmlTransient
@@ -86,18 +83,18 @@ public class Location implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        hash += (code != null ? code.hashCode() : 0);
         return hash;
     }
 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Location)) {
+        if (!(object instanceof Course)) {
             return false;
         }
-        Location other = (Location) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        Course other = (Course) object;
+        if ((this.code == null && other.code != null) || (this.code != null && !this.code.equals(other.code))) {
             return false;
         }
         return true;
@@ -105,7 +102,7 @@ public class Location implements Serializable {
 
     @Override
     public String toString() {
-        return "virtualschool.core.entity.Location[ id=" + id + " ]";
+        return "virtualschool.core.entity.Course[ code=" + code + " ]";
     }
     
 }
