@@ -33,8 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "course_session")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CourseSession.findAll", query = "SELECT c FROM CourseSession c")})
 public class CourseSession implements Serializable {
 
     private static final long serialVersionUID = 1L;

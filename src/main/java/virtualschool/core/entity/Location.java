@@ -104,5 +104,4 @@ public class Location implements Serializable {
     public String toString() {
         return "Location{" + "id=" + id + ", city=" + city + '}';
     }
-
 }

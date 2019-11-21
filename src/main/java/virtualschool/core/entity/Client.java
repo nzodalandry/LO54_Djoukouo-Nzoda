@@ -26,8 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "client")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Client.findAll", query = "SELECT c FROM Client c")})
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
